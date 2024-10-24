@@ -20,6 +20,7 @@ export default class Cell {
         
         if (this.checked) {
             ctx.fillStyle = "rgba(0,200,0,0.5)"
+            ctx.lineWidth = 0 
             ctx.fillRect(this.column*this.vars.size,this.row*this.vars.size,this.vars.size,this.vars.size)
         }
         
@@ -27,13 +28,13 @@ export default class Cell {
 
     neighbors() {
         let v = []
-        let index = this.index(this.row-1,this.column)
+        let index = this.index(this.column-1,this.row)
         if (index >= 0 && !this.vars.cells[index].checked) v.push(this.vars.cells[index])
-        index = this.index(this.row+1,this.column)
+        index = this.index(this.column+1,this.row)
         if (index >= 0 && !this.vars.cells[index].checked) v.push(this.vars.cells[index])
-        index = this.index(this.row,this.column-1)
+        index = this.index(this.column,this.row-1)
         if (index >= 0 && !this.vars.cells[index].checked) v.push(this.vars.cells[index])
-        index = this.index(this.row,this.column+1)
+        index = this.index(this.column,this.row+1)
         if (index >= 0 && !this.vars.cells[index].checked) v.push(this.vars.cells[index])
 
         
@@ -45,6 +46,8 @@ export default class Cell {
         if (x < 0 || x > this.vars.columns-1 || y < 0 || y > this.vars.rows-1) return -1
         return (y * this.vars.columns) + x
     }
+
+    
 }
 
 function line(ctx, x1,y1,x2,y2) {
