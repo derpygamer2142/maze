@@ -26,6 +26,7 @@ for (let j = 0; j < rows; j++) {
 vars.cells = cells
 current = cells[0]
 current.checked = true
+let stack = [current]
 
 function draw() {
     ctx.fillStyle = "silver"
@@ -36,7 +37,14 @@ function draw() {
         v.draw(ctx)
     })
 
+    ctx.fillStyle = "rgba(115,0,0,0.5)"
+    stack.forEach((c) => {
+        c.drawCurrent(ctx)
+    })
+    ctx.fillStyle = "rgba(0,0,155,0.5)"
+    current.drawCurrent(ctx)
 }
+
 
 function update() {
     current.checked = true
@@ -45,9 +53,17 @@ function update() {
         next.checked = true
         remove(current, next)
         current = next
+        stack.push(current)
+    }
+    else {
+        if (stack.length > 0) {
+            current = stack.pop()
+        }
+        
+        
         
     }
-    else return
+
     draw()
 }
 
@@ -76,4 +92,4 @@ function remove(cell1, cell2) {
     
 }
 
-setInterval(update, 350)
+setInterval(update, 5)

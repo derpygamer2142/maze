@@ -47,7 +47,10 @@ export default class Cell {
         return (y * this.vars.columns) + x
     }
 
-    
+    drawCurrent(ctx) {
+        ctx.lineWidth = 0 
+        ctx.fillRect(this.column*this.vars.size,this.row*this.vars.size,this.vars.size,this.vars.size)
+    }
 }
 
 function line(ctx, x1,y1,x2,y2) {
